@@ -1,0 +1,116 @@
+{
+ "data": [
+  {
+   "citedPaper": {
+    "paperId": "8887c6e5616345c8433abef70cf5300e4419a172",
+    "externalIds": {
+     "ArXiv": "0000.00001",
+     "DOI": "10.48550/arXiv.0000.00001"
+    },
+    "title": "A made-up paper for the tests, number 1",
+    "venue": "arXiv.org",
+    "year": 2018,
+    "citationCount": 10,
+    "authors": [
+     {
+      "name": "A. Example"
+     }
+    ]
+   }
+  },
+  {
+   "citedPaper": {
+    "paperId": "af1785516aadee25950ad6a0e638d2f08763a58e",
+    "externalIds": {
+     "ArXiv": "0000.00002",
+     "DOI": "10.48550/arXiv.0000.00002"
+    },
+    "title": "A made-up paper for the tests, number 2",
+    "venue": "Example Conference on Learning",
+    "year": 2019,
+    "citationCount": 20,
+    "authors": [
+     {
+      "name": "A. Example"
+     },
+     {
+      "name": "B. Sample"
+     }
+    ]
+   }
+  },
+  {
+   "citedPaper": {
+    "paperId": "44257322b526f6dbd0e6ab091c761a6ae4497c95",
+    "externalIds": {
+     "DOI": "10.0000/example.3"
+    },
+    "title": "A made-up paper for the tests, number 3",
+    "venue": "Journal of Examples",
+    "year": 2020,
+    "citationCount": 30,
+    "authors": [
+     {
+      "name": "A. Example"
+     }
+    ]
+   }
+  },
+  {
+   "citedPaper": {
+    "paperId": "4e27945ff30820daf54a247acb9b43345634c5c9",
+    "externalIds": {
+     "ArXiv": "0000.00004",
+     "DOI": "10.48550/arXiv.0000.00004"
+    },
+    "title": "A made-up paper for the tests, number 4",
+    "venue": "arXiv.org",
+    "year": 2021,
+    "citationCount": 40,
+    "authors": [
+     {
+      "name": "A. Example"
+     },
+     {
+      "name": "B. Sample"
+     }
+    ]
+   }
+  },
+  {
+   "citedPaper": {
+    "paperId": "b7b75165e5829f3160f73083fb401c640ef3d2e7",
+    "externalIds": {
+     "ArXiv": "0000.00005"
+    },
+    "title": "A made-up paper for the tests, number 5",
+    "venue": "Example Workshop",
+    "year": 2022,
+    "citationCount": 50,
+    "authors": [
+     {
+      "name": "A. Example"
+     }
+    ]
+   }
+  },
+  {
+   "citedPaper": {
+    "paperId": "990f40fad7f4b303a7732c1aacf4cf4d5d8e30e6",
+    "externalIds": null,
+    "title": "A made-up paper for the tests, number 6",
+    "venue": "Example Conference on Learning",
+    "year": 2023,
+    "citationCount": 60,
+    "authors": [
+     {
+      "name": "A. Example"
+     },
+     {
+      "name": "B. Sample"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,499 @@
+{
+ "about": "Known-item queries for lit's search battery. Queries are topic words, not titles. Every target was confirmed on 2026-11-14 through the arXiv API (arxiv ids), the LessWrong search API (lw ids) or the OpenReview search API (openreview ids). Items with heldout=true were set aside before any tuning (every 4th item) and are reported separately.",
+ "items": [
+  {
+   "id": "q01",
+   "query": "sparse dictionary learning interpretable features residual stream language models",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Sparse Autoencoders Find Highly Interpretable Features in Language Models",
+    "year": 2023,
+    "arxiv": "2309.08600"
+   }
+  },
+  {
+   "id": "q02",
+   "query": "superposition polysemantic neurons toy models",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Toy Models of Superposition",
+    "year": 2022,
+    "arxiv": "2209.10652"
+   }
+  },
+  {
+   "id": "q03",
+   "query": "indirect object identification circuit GPT-2 small",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small",
+    "year": 2022,
+    "arxiv": "2211.00593"
+   }
+  },
+  {
+   "id": "q04",
+   "query": "grokking modular addition mechanistic progress measures",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "Progress measures for grokking via mechanistic interpretability",
+    "year": 2023,
+    "arxiv": "2301.05217"
+   }
+  },
+  {
+   "id": "q05",
+   "query": "unsupervised probing truth latent knowledge contrast consistency",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Discovering Latent Knowledge in Language Models Without Supervision",
+    "year": 2022,
+    "arxiv": "2212.03827"
+   }
+  },
+  {
+   "id": "q06",
+   "query": "top-down transparency reading and controlling representations of concepts",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+    "year": 2023,
+    "arxiv": "2310.01405"
+   }
+  },
+  {
+   "id": "q07",
+   "query": "refusal behaviour one direction residual stream ablation chat models",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Refusal in Language Models Is Mediated by a Single Direction",
+    "year": 2024,
+    "arxiv": "2406.11717"
+   }
+  },
+  {
+   "id": "q08",
+   "query": "top-k sparse autoencoders scaling laws GPT-4 latents",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "Scaling and evaluating sparse autoencoders",
+    "year": 2024,
+    "arxiv": "2406.04093"
+   }
+  },
+  {
+   "id": "q09",
+   "query": "learning a reward from human comparisons of trajectory segments",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Deep reinforcement learning from human preferences",
+    "year": 2017,
+    "arxiv": "1706.03741"
+   }
+  },
+  {
+   "id": "q10",
+   "query": "harmlessness from AI feedback self-critique written principles",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Constitutional AI: Harmlessness from AI Feedback",
+    "year": 2022,
+    "arxiv": "2212.08073"
+   }
+  },
+  {
+   "id": "q11",
+   "query": "backdoored deceptive LLM behaviour persists through safety training",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+    "year": 2024,
+    "arxiv": "2401.05566"
+   }
+  },
+  {
+   "id": "q12",
+   "query": "model strategically complies with training objective to keep its preferences",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "Alignment faking in large language models",
+    "year": 2024,
+    "arxiv": "2412.14093"
+   }
+  },
+  {
+   "id": "q13",
+   "query": "adversarial suffix jailbreak aligned language models greedy gradient search",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+    "year": 2023,
+    "arxiv": "2307.15043"
+   }
+  },
+  {
+   "id": "q14",
+   "query": "benchmark imitative falsehoods truthfulness of answers",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "TruthfulQA: Measuring How Models Mimic Human Falsehoods",
+    "year": 2021,
+    "arxiv": "2109.07958"
+   }
+  },
+  {
+   "id": "q15",
+   "query": "crowdsourced pairwise human preference platform evaluating LLMs leaderboard",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
+    "year": 2024,
+    "arxiv": "2403.04132"
+   }
+  },
+  {
+   "id": "q16",
+   "query": "resolve real GitHub issues benchmark language models software engineering",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+    "year": 2023,
+    "arxiv": "2310.06770"
+   }
+  },
+  {
+   "id": "q17",
+   "query": "weak supervisors elicit capabilities of strong models superalignment",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision",
+    "year": 2023,
+    "arxiv": "2312.09390"
+   }
+  },
+  {
+   "id": "q18",
+   "query": "chain-of-thought faithfulness interventions truncation paraphrasing",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Measuring Faithfulness in Chain-of-Thought Reasoning",
+    "year": 2023,
+    "arxiv": "2307.13702"
+   }
+  },
+  {
+   "id": "q19",
+   "query": "unfaithful explanations chain of thought biasing features answer always A",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+    "year": 2023,
+    "arxiv": "2305.04388"
+   }
+  },
+  {
+   "id": "q20",
+   "query": "in-context scheming evaluations frontier models covert goals",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "Frontier Models are Capable of In-context Scheming",
+    "year": 2024,
+    "arxiv": "2412.04984"
+   }
+  },
+  {
+   "id": "q21",
+   "query": "narrow finetuning on insecure code causes broad misalignment",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs",
+    "year": 2025,
+    "arxiv": "2502.17424"
+   }
+  },
+  {
+   "id": "q22",
+   "query": "monitoring reasoning chain of thought reward hacking obfuscation",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation",
+    "year": 2025,
+    "arxiv": "2503.11926"
+   }
+  },
+  {
+   "id": "q23",
+   "query": "auditing game hidden objective language model reward model biases",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Auditing language models for hidden objectives",
+    "year": 2025,
+    "arxiv": "2503.10965"
+   }
+  },
+  {
+   "id": "q24",
+   "query": "monitoring reasoning traces safety opportunity fragile",
+   "kind": "arxiv",
+   "heldout": true,
+   "target": {
+    "title": "Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety",
+    "year": 2025,
+    "arxiv": "2507.11473"
+   }
+  },
+  {
+   "id": "q25",
+   "query": "activation directions monitor and control character traits personality",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Persona Vectors: Monitoring and Controlling Character Traits in Language Models",
+    "year": 2025,
+    "arxiv": "2507.21509"
+   }
+  },
+  {
+   "id": "q26",
+   "query": "traits transmitted through hidden signals in distillation data",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Subliminal Learning: Language models transmit behavioral traits via hidden signals in data",
+    "year": 2025,
+    "arxiv": "2507.14805"
+   }
+  },
+  {
+   "id": "q27",
+   "query": "length of tasks AI agents can complete time horizon doubling",
+   "kind": "arxiv",
+   "heldout": false,
+   "target": {
+    "title": "Measuring AI Ability to Complete Long Software Tasks",
+    "year": 2025,
+    "arxiv": "2503.14499"
+   }
+  },
+  {
+   "id": "q28",
+   "query": "GPT as a simulator of characters not an agent simulacra",
+   "kind": "lw",
+   "heldout": true,
+   "target": {
+    "title": "Simulators",
+    "year": 2022,
+    "lw": "vJFdjigzmcXMhNTsx",
+    "af": true
+   }
+  },
+  {
+   "id": "q29",
+   "query": "waluigi effect prompting produces opposite character",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "The Waluigi Effect (mega-post)",
+    "year": 2023,
+    "lw": "D7PumeYTDPfBTp3i7",
+    "af": true
+   }
+  },
+  {
+   "id": "q30",
+   "query": "decoding intermediate layers into vocabulary GPT-2 lens",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "interpreting GPT: the logit lens",
+    "year": 2020,
+    "lw": "AcKRB8wDpdaN6v6ru",
+    "af": true
+   }
+  },
+  {
+   "id": "q31",
+   "query": "eliciting latent knowledge report reporter predictor",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "ARC's first technical report: Eliciting Latent Knowledge",
+    "year": 2021,
+    "lw": "qHCDysDnvhteW7kRd",
+    "af": true
+   }
+  },
+  {
+   "id": "q32",
+   "query": "anomalous tokens weird completions GPT-3 prompt generation",
+   "kind": "lw",
+   "heldout": true,
+   "target": {
+    "title": "SolidGoldMagikarp (plus, prompt generation)",
+    "year": 2023,
+    "lw": "aPeJE8bSo6rAFoLqg",
+    "af": true
+   }
+  },
+  {
+   "id": "q33",
+   "query": "adding an activation vector steering GPT-2-XL",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "Steering GPT-2-XL by adding an activation vector",
+    "year": 2023,
+    "lw": "5spBue2z2tw4JuDCx",
+    "af": true
+   }
+  },
+  {
+   "id": "q34",
+   "query": "easiest path to transformative AI human feedback leads to takeover",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "Without specific countermeasures, the easiest path to transformative AI likely leads to AI takeover",
+    "year": 2022,
+    "lw": "pRkFkzwKZ2zfa3R6H",
+    "af": true
+   }
+  },
+  {
+   "id": "q35",
+   "query": "list of lethalities why AGI alignment is hard",
+   "kind": "lw",
+   "heldout": false,
+   "target": {
+    "title": "AGI Ruin: A List of Lethalities",
+    "year": 2022,
+    "lw": "uMQ3cqWDPHhjtiesc",
+    "af": true
+   }
+  },
+  {
+   "id": "q36",
+   "query": "sparse feature circuits interpretable causal graphs",
+   "kind": "openreview",
+   "heldout": true,
+   "target": {
+    "title": "Sparse Feature Circuits: Discovering and Editing Interpretable Causal Graphs in Language Models",
+    "year": 2025,
+    "arxiv": "2403.19647",
+    "openreview": [
+     "I4e82CIDxv",
+     "OJNQdNwgfu",
+     "Sgl67kodiw"
+    ],
+    "venues": [
+     "ICLR 2025 Oral",
+     "CoRR 2024",
+     "ICLR 2025"
+    ]
+   }
+  },
+  {
+   "id": "q37",
+   "query": "language models represent space and time linear world model",
+   "kind": "openreview",
+   "heldout": false,
+   "target": {
+    "title": "Language Models Represent Space and Time",
+    "year": 2024,
+    "arxiv": "2310.02207",
+    "openreview": [
+     "jE8xbmvFin"
+    ],
+    "venues": [
+     "ICLR 2024 poster"
+    ]
+   }
+  },
+  {
+   "id": "q38",
+   "query": "inference-time intervention truthful answers attention heads",
+   "kind": "openreview",
+   "heldout": false,
+   "target": {
+    "title": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+    "year": 2023,
+    "arxiv": "2306.03341",
+    "openreview": [
+     "m1tfKmUHlb",
+     "ZFhEqNbmuG",
+     "aLLuYpn83y"
+    ],
+    "venues": [
+     "CoRR 2023",
+     "NeurIPS 2023",
+     "NeurIPS 2023 spotlight"
+    ]
+   }
+  },
+  {
+   "id": "q39",
+   "query": "how does LLM safety training fail competing objectives mismatched generalization",
+   "kind": "openreview",
+   "heldout": false,
+   "target": {
+    "title": "Jailbroken: How Does LLM Safety Training Fail?",
+    "year": 2023,
+    "arxiv": "2307.02483",
+    "openreview": [
+     "ivHRteCqxo",
+     "yxODxfyEmG",
+     "jA235JGM09"
+    ],
+    "venues": [
+     "NeurIPS 2023",
+     "CoRR 2023",
+     "NeurIPS 2023 oral"
+    ]
+   }
+  },
+  {
+   "id": "q40",
+   "query": "linear structure true false statements probes geometry",
+   "kind": "openreview",
+   "heldout": true,
+   "target": {
+    "title": "The Geometry of Truth: Emergent Linear Structure in Large Language Model Representations of True/False Datasets",
+    "year": 2024,
+    "arxiv": "2310.06824",
+    "openreview": [
+     "CeJEfNKstt",
+     "giMJzZIuzr",
+     "aajyHYjjsk"
+    ],
+    "venues": [
+     "Submitted to ICLR 2024",
+     "ATTRIB Poster",
+     "COLM"
+    ]
+   }
+  }
+ ]
+}

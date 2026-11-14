@@ -1,0 +1,38 @@
+name: ci
+# lit's own tests (stdlib Python, offline: the tests replace lit's fetch with one that fails, and
+# read the saved pages in tests/fixtures), on GitHub's standard hosted runner of a public
+# repository (free, no minute cap).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  # A PR's superseded run is cancelled; every push to main gets a group of its own.
+  group: ci-${{ github.event_name }}-${{ github.event_name == 'pull_request' && github.ref || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+permissions:
+  contents: read
+jobs:
+  test:
+    # Pinned, like the other Hive modules: ubuntu-latest moves under the same name.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: tests
+        shell: bash
+        run: |
+          python3 --version
+          python3 -m unittest discover -s tests -v 2>&1 | tee "$RUNNER_TEMP/check.log"
+          test "${PIPESTATUS[0]}" = 0
+      # Job logs need a login; annotations don't, so a Hive can read what failed.
+      - name: name the failing cases
+        if: failure()
+        shell: bash
+        run: |
+          grep -a -E '^(FAIL|ERROR|Traceback|[A-Za-z]*Error)' "$RUNNER_TEMP/check.log" | head -20 | while IFS= read -r l; do
+            echo "::error::${l:0:400}"
+          done

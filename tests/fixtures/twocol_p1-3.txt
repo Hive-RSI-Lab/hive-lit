@@ -1,0 +1,196 @@
+       A Structural Probe for Finding Syntax in Word Representations
+
+
+                    John Hewitt                                    Christopher D. Manning
+                 Stanford University                                 Stanford University
+              a@example.com                                       b@example.com
+
+
+
+
+                     Abstract                                  In this work, we propose a structural probe, a
+                                                            simple model which tests whether syntax trees are
+    Recent work has improved our ability to                 consistently embedded in a linear transformation
+    detect linguistic knowledge in word repre-
+                                                            of a neural network’s word representation space.
+    sentations. However, current methods for
+    detecting syntactic knowledge do not test               Tree structure is embedded if the transformed space
+    whether syntax trees are represented in their           has the property that squared L2 distance between
+    entirety. In this work, we propose a structural         two words’ vectors corresponds to the number of
+    probe, which evaluates whether syntax trees             edges between the words in the parse tree. To re-
+    are embedded in a linear transformation of a            construct edge directions, we hypothesize a linear
+    neural network’s word representation space.             transformation under which the squared L2 norm
+    The probe identifies a linear transformation
+                                                            corresponds to the depth of the word in the parse
+    under which squared L2 distance encodes the
+    distance between words in the parse tree, and
+                                                            tree. Our probe uses supervision to find the trans-
+    one in which squared L2 norm encodes depth              formations under which these properties are best
+    in the parse tree. Using our probe, we show             approximated for each model. If such transfor-
+    that such transformations exist for both ELMo           mations exist, they define inner products on the
+    and BERT but not in baselines, providing                original space under which squared distances and
+    evidence that entire syntax trees are embedded          norms encode syntax trees – even though the mod-
+    implicitly in deep models’ vector geometry.             els being probed were never given trees as input or
+                                                            supervised to reconstruct them. This is a structural
+1   Introduction
+                                                            property of the word representation space, akin to
+As pretrained deep models that build contextual-            vector offsets encoding word analogies (Mikolov
+ized representations of language continue to pro-           et al., 2013). Using our probe, we conduct a tar-
+vide gains on NLP benchmarks, understanding                 geted case study, showing that ELMo (Peters et al.,
+what they learn is increasingly important. To this          2018a) and BERT (Devlin et al., 2019) representa-
+end, probing methods are designed to evaluate the           tions embed parse trees with high consistency in
+extent to which representations of language en-             contrast to baselines, and in a low-rank space.1
+code particular knowledge of interest, like part-of-           In summary, we contribute a simple structural
+speech (Belinkov et al., 2017), morphology (Peters          probe for finding syntax in word representations
+et al., 2018a), or sentence length (Adi et al., 2017).      (§2), and experiments providing insights into
+Such methods work by specifying a probe (Con-               and examples of how a low-rank transformation
+neau et al., 2018; Hupkes et al., 2018), a supervised       recovers parse trees from ELMo and BERT rep-
+model for finding information in a representation.          resentations (§3,4). Finally, we discuss our probe
+   Of particular interest, both for linguistics             and limitations in the context of recent work (§5).
+and for building better models, is whether deep
+models’ representations encode syntax (Linzen,               2   Methods
+2018). Despite recent work (Kuncoro et al., 2018;
+Peters et al., 2018b; Tenney et al., 2019), open            Our goal is to design a simple method for testing
+questions remain as to whether deep contextual              whether a neural network embeds each sentence’s
+models encode entire parse trees in their word                 1
+                                                                 We release our code at https://github.com/
+representations.                                             john-hewitt/structural-probes.
+
+                                                       4129
+                                Proceedings of NAACL-HLT 2019, pages 4129–4138
+           Minneapolis, Minnesota, June 2 - June 7, 2019. c 2019 Association for Computational Linguistics
+dependency parse tree in its contextual word rep-               where i, j index the word in the sentence.2 The
+resentations – a structural hypothesis. Under a rea-            parameters of our probe are exactly the matrix B,
+sonable definition, to embed a graph is to learn a              which we train to recreate the tree distance between
+vector representation of each node such that geom-              all pairs of words (wi` , wj` ) in all sentences T ` in
+etry in the vector space—distances and norms—                   the training set of a parsed corpus. Specifically, we
+approximates geometry in the graph (Hamilton                    approximate through gradient descent:
+et al., 2017). Intuitively, why do parse tree dis-                        X 1 X
+tances and depths matter to syntax? The dis-                        min           dT ` (wi` , wj` ) − dB (h`i , h`j )2
+tance metric—the path length between each pair
+                                                                    B      |s` |2
+                                                                           `        i,j
+of words—recovers the tree T simply by identify-
+ing that nodes u, v with distance dT (u, v) = 1 are             where |s` | is the length of the sentence; we nor-
+neighbors. The node with greater norm—depth in                  malize by the square since each sentence has |s` |2
+the tree—is the child. Beyond this identity, the dis-           word pairs.
+tance metric explains hierarchical behavior. For ex-            2.2       Properties of the structural probe
+ample, the ability to perform the classic hierarchy
+test of subject-verb number agreeement (Linzen                  Because our structural probe defines a valid dis-
+et al., 2016) in the presence of “attractors” can be            tance metric, we get a few nice properties for free.
+explained as the verb (V) being closer in the tree to           The simplest is that distances are guaranteed non-
+its subject (S) than to any of the attactor nouns:              negative and symmetric, which fits our probing
+                                .
+                                                                task. Perhaps most importantly, the probe tests the
+                     .                   .
+           S   ...       A1   ...   A2       ...
+                                                   .
+                                                   V   ...
+                                                                concrete claim that there exists an inner product on
+                                                                the representation space whose squared distance—
+Intuitively, if a neural network embeds parse trees,            a global property of the space—encodes syntax
+it likely will not use its entire representation space          tree distance. This means that the model not only
+to do so, since it needs to encode many kinds of                encodes which word is governed by which other
+information. Our probe learns a linear transforma-              word, but each word’s proximity to every other
+tion of a word representation space such that the               word in the syntax tree.3 This is a claim about the
+transformed space embeds parse trees across all                 structure of the representation space, akin to the
+sentences. This can be interpreted as finding the               claim that analogies are encoded as vector-offsets
+part of the representation space that is used to en-            in uncontextualized word embeddings (Mikolov
+code syntax; equivalently, it is finding the distance           et al., 2013). One benefit of this is the ability to
+on the original space that best fits the tree metrics.          query the nature of this structure: for example, the
+                                                                dimensionality of the transformed space (§ 4.1).
+2.1   The structural probe
+In this section we provide a description of our pro-            2.3       Tree depth structural probes
+posed structural probe, first discussing the distance           The second tree property we consider is the parse
+formulation. Let M be a model that takes in a se-               depth kwi k of a word wi , defined as the number
+quence of n words w1:n ` and produces a sequence                of edges in the parse tree between wi and the root
+of vector representations h`1:n , where ` identifies            of the tree. This property is naturally represented
+the sentence. Starting with the dot product, re-                as a norm – it imposes a total order on the words
+call that we can define a family of inner prod-                 in the sentence. We wish to probe to see if there
+ucts, hT Ah, parameterized by any positive semi-                exists a squared norm on the word representation
+definite, symmetric matrix A ∈ Sm×m    +    . Equiv-                 2
+                                                                      As noted in Eqn 1, in practice, we find that approximating
+alently, we can view this as specifying a linear                the parse tree distance and norms with the squared vector
+transformation B ∈ Rk×m , such that A = B T B.                  distances and norms consistently performs better. Because a
+                                                                distance metric and its square encode exactly the same parse
+The inner product is then (Bh)T (Bh), the norm                  trees, we use the squared distance throughout this paper. Also
+of h once transformed by B. Every inner product                 strictly, since A is not positive definite, the inner product is
+corresponds to a distance metric. Thus, our family              indefinite, and the distance a pseudometric. Further discussion
+                                                                can be found in our appendix.
+of squared distances is defined as:                                 3
+                                                                      Probing for distance instead of headedness also helps
+                                   T                           avoid somewhat arbitrary decisions regarding PP headedness,
+  dB (h`i , h`j )2 = B(h`i − h`j )    B(h`i − h`j )
+
+                                                                the DP hypothesis, and auxiliaries, letting the representation
+                                                                “disagree” on these while still encoding roughly the same
+                                                    (1)         global structure. See Section 5 for more discussion.
+
+                                                             4130
+                        Distance             Depth              BERT LARGE K, where K indexes the hidden
+       Method         UUAS DSpr.         Root% NSpr.            layer of the corresponding model. All ELMo
+       L INEAR         48.9      0.58       2.9     0.27        and BERT-large layers are dimensionality 1024;
+       ELM O 0         26.8      0.44      54.3     0.56
+       D ECAY 0        51.7      0.61      54.3     0.56
+                                                                BERT-base layers are dimensionality 768.
+        P ROJ 0        59.8      0.73      64.4     0.75
+                                                                Data We probe models for their ability to capture
+      ELM O 1          77.0      0.83      86.5     0.87
+     BERT BASE 7       79.8      0.85      88.0     0.87
+                                                                the Stanford Dependencies formalism (de Marn-
+    BERT LARGE 15      82.5      0.86      89.4     0.88        effe et al., 2006), claiming that capturing most as-
+    BERT LARGE 16      81.7      0.87      90.1     0.89        pects of the formalism implies an understanding
+                                                                of English syntactic structure. To this end, we ob-
+Table 1: Results of structural probes on the PTB WSJ test       tain fixed word representations for sentences of the
+set; baselines in the top half, models hypothesized to encode
+syntax in the bottom half. For the distance probes, we show
+                                                                parsing train/dev/test splits of the Penn Treebank
+the Undirected Unlabeled Attachment Score (UUAS) as well        (Marcus et al., 1993), with no pre-processing.4
+as the average Spearman correlation of true to predicted dis-
+tances, DSpr. For the norm probes, we show the root predic-     Baselines Our baselines should encode features
+tion accuracy and the average Spearman correlation of true to   useful for training a parser, but not be capable of
+predicted norms, NSpr.
+                                                                parsing themselves, to provide points of compari-
+                                                                son against ELMo and BERT. They are as follows:
+
+                                                                L INEAR : The tree resulting from the assumption
+                                                                    that English parse trees form a left-to-right
+                                                                    chain. A model that encodes the positions of
+                                                                    words should be able to meet this baseline.
+
+                                                                ELM O 0 : Strong character-level word embed-
+                                                                   dings with no contextual information. As
+Figure 1: Parse distance UUAS and distance Spearman                these representations lack even position in-
+correlation across the BERT and ELMo model layers.
+                                                                   formation, we should be completely unable to
+                                                                   find syntax trees embedded.
+space that encodes this tree norm. We replace
+the vector distance function dB (hi , hj ) with the             D ECAY 0 : Assigns each word a weighted average
+squared vector norm khi k2B , replacing Equation 1                  of all ELM O 0 embeddings in the sentence.
+with khi kA = (Bhi )T (Bhi ) and training B to                      The weight assigned to each word decays ex-
+recreate kwi k. Like the distance probe, this norm                  ponentially as 21d , where d is the linear dis-
+formulation makes a concrete claim about the struc-                 tance between the words.
+ture of the vector space.                                       P ROJ 0 : Contextualizes the ELM O 0 embeddings
+                                                                    with a randomly initialized BiLSTM layer of
+3    Experiments
+                                                                    dimensionality identical to ELMo (1024), a
+Using our probe, we evaluate whether representa-                    surprisingly strong baseline for contextualiza-
+tions from ELMo and BERT, two popular English                       tion (Conneau et al., 2018).
+models pre-trained on language modeling-like ob-
+jectives, embed parse trees according to our struc-             3.1   Tree distance evaluation metrics
+tural hypothesis. Unless otherwise specified, we                We evaluate models on how well the predicted
+permit the linear transformation B to be potentially            distances between all pairs of words reconstruct
+full-rank (i.e., B is square.) Later, we explore what           gold parse trees and correlate with the parse trees’
+rank of transformation is actually necessary for                distance metrics. To evaluate tree reconstruction,
+encoding syntax (§ 4.1).                                        we take each test sentence’s predicted parse tree
+                                                                distances and compute the minimum spanning
+Representation models We use the 5.5B-word                      tree. We evaluate the predicted tree on undirected
+pre-trained ELMo weights for all ELMo rep-
+                                                                   4
+resentations, and both BERT-base (cased) and                         Since BERT constructs subword representations, we align
+                                                                subword vectors with gold Penn Treebank tokens, and assign
+BERT-large (cased). The representations we                      each token the average of its subword representation. This
+evaluate are denoted ELM O K, BERT BASE K,                      thus represents a lower-bound on BERT’s performance.
+
+                                                           4131
+

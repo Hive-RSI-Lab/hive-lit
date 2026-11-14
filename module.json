@@ -1,0 +1,1 @@
+{"name": "lit", "description": "Search, fetch, read and check ML and AI-safety papers, so quotes, claims and references can be checked against the real text.", "kind": "tool", "bin": {"lit": "lit.py"}}
