@@ -1,7 +1,22 @@
 #!/usr/bin/env python3
 """Known-item search battery for `lit search`.
 
-Each item in known_items.json is a topic-word query with one target work.
+The module ships no list of queries: write your own and pass it with `--items PATH`.
+The file is JSON, one entry per query:
+
+  {"items": [
+    {"id": "q01",
+     "query": "first direct detection gravitational waves binary black hole merger",
+     "kind": "arxiv",
+     "heldout": false,
+     "target": {"title": "Observation of Gravitational Waves from a Binary Black Hole Merger",
+                "year": 2016, "arxiv": "1602.03837"}}
+  ]}
+
+`query` is topic words, not the title. `kind` is a label of your own; the summary groups by it.
+`target` needs a `title` and may carry ids: `arxiv`, `doi`, `lw` (a LessWrong post id) and
+`openreview` (a list of note ids). Set `"heldout": true` on the items you keep out of tuning.
+
 A tool "finds" the target at rank k if result k carries one of the target's ids
 (arXiv, DOI, OpenReview, LessWrong) or a title that matches the target's title.
 
@@ -12,10 +27,10 @@ command is on PATH; that command must accept
 {"results": [{"url": ..., "title": ...}, ...]}.
 
 Usage:
-  battery/run.py                         # development set
-  battery/run.py --set heldout           # the 10 held-out items
-  battery/run.py --set all --out results.json
-  battery/run.py --tools lit,research    # with the optional comparison
+  battery/run.py --items my_items.json                        # development set (items not held out)
+  battery/run.py --items my_items.json --set heldout          # the held-out items
+  battery/run.py --items my_items.json --set all --out results.json
+  battery/run.py --items my_items.json --tools lit,research   # with the optional comparison
 """
 import argparse
 import difflib
@@ -89,7 +104,7 @@ def matches(item, blob, title):
     b = blob.lower()
     for i in ids_of(item):
         il = i.lower()
-        # arXiv ids must not match a longer id (2309.08600 vs 2309.086001).
+        # arXiv ids must not match a longer id (1602.03837 vs 1602.038371).
         if re.search(r"(?<![\w.])" + re.escape(il) + r"(?![\d])", b):
             return True
     a, c = title_key(item["target"]["title"]), title_key(title)
@@ -121,6 +136,8 @@ def summarise(rows, tool):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--items", required=True, metavar="PATH",
+                    help="JSON file with your known-item queries (the format is described above)")
     ap.add_argument("--set", choices=["dev", "heldout", "all"], default="dev")
     ap.add_argument("--tools", default="lit",
                     help="comma-separated: lit, and research as an optional comparison (default: lit)")
@@ -128,7 +145,13 @@ def main():
     ap.add_argument("--only", help="comma-separated item ids")
     ap.add_argument("--out", help="write per-query results as JSON here")
     a = ap.parse_args()
-    items = json.load(open(os.path.join(HERE, "known_items.json")))["items"]
+    try:
+        with open(a.items, encoding="utf-8") as f:
+            items = json.load(f)["items"]
+    except (OSError, ValueError) as e:
+        ap.error("can't read the items file %s: %s" % (a.items, e))
+    except (KeyError, TypeError):
+        ap.error('the items file %s has no "items" list (the format is in --help)' % a.items)
     if a.set == "dev":
         items = [i for i in items if not i.get("heldout")]
     elif a.set == "heldout":

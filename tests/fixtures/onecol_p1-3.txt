@@ -1,186 +1,166 @@
-                                        S PARSE AUTOENCODERS F IND H IGHLY I NTER -
-                                        PRETABLE F EATURES IN L ANGUAGE M ODELS
-
-                                         Hoagy Cunningham∗12 , Aidan Ewart∗13 , Logan Riggs∗1 , Robert Huben, Lee Sharkey4
-                                         1
-                                           EleutherAI, 2 MATS, 3 Bristol AI Safety Centre, 4 Apollo Research
-                                         {a, b, c}@example.com
-
-
-
-                                                                                      A BSTRACT
+                                                            Cold Extremes during Dansgaard-Oeschger Oscillations
+                                                                                  Ignacio del Amo ∗1 and Peter Ditlevsen1
+                                                      1
+                                                          Niels Bohr Institute, University of Copenhagen, Copenhagen, DK 1165, Denmark
 
 
 
 
-arXiv:2309.08600v3 [cs.LG] 4 Oct 2023
-                                                    One of the roadblocks to a better understanding of neural networks’ internals is
-                                                    polysemanticity, where neurons appear to activate in multiple, semantically dis-
-                                                    tinct contexts. Polysemanticity prevents us from identifying concise, human-
-                                                    understandable explanations for what neural networks are doing internally. One
-                                                    hypothesised cause of polysemanticity is superposition, where neural networks
-                                                    represent more features than they have neurons by assigning features to an over-
-                                                    complete set of directions in activation space, rather than to individual neurons.
-                                                    Here, we attempt to identify those directions, using sparse autoencoders to re-
-                                                    construct the internal activations of a language model. These autoencoders learn
-                                                    sets of sparsely activating features that are more interpretable and monoseman-
-                                                    tic than directions identified by alternative approaches, where interpretability is
-                                                    measured by automated methods. Moreover, we show that with our learned set
-                                                    of features, we can pinpoint the features that are causally responsible for coun-
-                                                    terfactual behaviour on the indirect object identification task (Wang et al., 2022)
-                                                    to a finer degree than previous decompositions. This work indicates that it is
-                                                    possible to resolve superposition in language models using a scalable, unsuper-
-                                                    vised method. Our method may serve as a foundation for future mechanistic in-
-                                                    terpretability work, which we hope will enable greater model transparency and
-                                                    steerability.
+arXiv:2609.03664v1 [physics.ao-ph] 3 Sep 2026
+                                                                                                September 4, 2026
 
 
-                                        1       I NTRODUCTION
 
-                                        Advances in artificial intelligence (AI) have resulted in the development of highly capable AI sys-
-                                        tems that make decisions for reasons we do not understand. This has caused concern that AI systems
-                                        that we cannot trust are being widely deployed in the economy and in our lives, introducing a num-
-                                        ber of novel risks (Hendrycks et al., 2023), including potential future risks that AIs might deceive
-                                        humans in order to accomplish undesirable goals (Ngo et al., 2022). Mechanistic interpretability
-                                        seeks to mitigate such risks through understanding how neural networks calculate their outputs, al-
-                                        lowing us to reverse engineer parts of their internal processes and make targeted changes to them
-                                        (Cammarata et al., 2021; Wang et al., 2022; Elhage et al., 2021).
-                                        To reverse engineer a neural network, it is necessary to break it down into smaller units (features)
-                                        that can be analysed in isolation. Using individual neurons as these units has had some success (Olah
-                                        et al., 2020; Bills et al., 2023), but a key challenge has been that neurons are often polysemantic,
-                                        activating for several unrelated types of feature (Olah et al., 2020). Also, for some types of network
-                                        activations, such as the residual stream of a transformer, there is little reason to expect features to
-                                        align with the neuron basis (Elhage et al., 2023).
-                                        Elhage et al. (2022b) investigate why polysemanticity might arise and hypothesise that it may result
-                                        from models learning more distinct features than there are dimensions in the layer. They call this
-                                        phenomenon superposition. Since a vector space can only have as many orthogonal vectors as
-                                        it has dimensions, this means the network would learn an overcomplete basis of non-orthogonal
-                                        features. Features must be sufficiently sparsely activating for superposition to arise because, without
-                                            ∗
-                                                Equal contribution
-                                                Code to replicate experiments can be found at https://github.com/HoagyC/sparse_coding
+                                                                                                       Abstract
+                                                           This paper studies the statistics of extreme cold air surface temperatures in a climate that experiences
+                                                       abrupt changes. We employ a CCSM4 simulation of Last Glacial Maximum conditions that exhibits rapid
+                                                       switching between stadial and interstadial states as data. Non-stationary linear Generalized Extreme
+                                                       Value (GEV) distributions are fitted to find the regions that show the most prominent changes and
+                                                       associate them with physical processes. The results are then compared with a non-linear model, which
+                                                       gives a more detailed picture of how the parameters change as a function of the AMOC strength. While
+                                                       different regions of the world show different extremal behaviours, many regions show an approximately
+                                                       linear relationship between the parameters of the GEV distributions and the strength of the AMOC
+                                                       within the stadial and interstadial states, with some non-linear oscillation or jump where the transition
+                                                       between them takes place. Physical processes such as the expansion and retreat of the sea ice and the
+                                                       relative changes in the strength of the currents are shown to impact the magnitude and variability of
+                                                       the extremes, with significant changes observed in the three parameters of the GEV. They also create
+                                                       teleconnections that are compared whenever possible with various proxies for the temperature of the
+                                                       air and the water. We show how mapping the parameters of the GEV distributions into the AMOC
+                                                       strength gives a way to compare results between different climate models and different climate states.
+                                                       Comparisons, however, need to pay heed to the dynamical characteristics of the state and the location
+                                                       to be meaningful.
 
 
-                                                                                            1
-Figure 1: An overview of our method. We a) sample the internal activations of a language model,
-either the residual stream, MLP sublayer, or attention head sublayer; b) use these activations to train
-a neural network, a sparse autoencoder whose weights form a feature dictionary; c) interpret the
-resulting features with techniques such as OpenAI’s autointerpretability scores.
+
+                                                1      Introduction
+                                                Changes in the frequency and intensity of extreme events are amongst the most catastrophic and harmful
+                                                effects of climate change [1]. Heatwaves are increasing in intensity and frequency, causing widespread excess
+                                                mortality and wildfires in summer [2]. Cold spells can cause agricultural disasters and migrations, and they
+                                                are also changing behavior [2]. Even if a warmer world generally reduces cold spell frequency and intensity
+                                                [3, 2], it also alters physical processes that can result in extreme conditions, such as the destabilization of
+                                                the polar vortices [4]. A main driver of heat transport is the Atlantic Meridional Overturning Circulation
+                                                (AMOC). A slowdown of the AMOC could cause a drop in temperatures globally and an increase in cold
+                                                extremes, especially in the Northern Hemisphere [5, 6]. Here we investigate the dependency between cold
+                                                extremes and AMOC strength using output from a climate model that displays Dansgaard-Oeschger-like
+                                                oscillations in Last Glacial Maximum (LGM) conditions.
+                                                    Statistical extremes of a distribution behave in a fundamentally different way than average quantities. The
+                                                asymptotic distribution for the annual maxima or minima of a stationary variable is given by a Generalized
+                                                Extreme Value (GEV) distribution [7, 8]. The GEV distribution is defined by 3 different parameters. These
+                                                parameters are the location parameter µ, the scale σ and the tail parameter ξ. Each parameter describes the
+                                                distribution in a different way. The location parameter describes where the bulk of the distribution is, the
+                                                scale parameter describes how broad the distribution is, and the tail parameter describes how fast the tails
+                                                    ∗ author@example.com
 
 
-high sparsity, interference between non-orthogonal features prevents any performance gain from
-superposition. This suggests that we may be able to recover the network’s features by finding a set
-of directions in activation space such that each activation vector can be reconstructed from a sparse
-linear combinations of these directions. This is equivalent to the well-known problem of sparse
-dictionary learning (Olshausen & Field, 1997).
-Building on Sharkey et al. (2023), we train sparse autoencoders to learn these sets of directions. Our
-approach is also similar to Yun et al. (2021), who apply sparse dictionary learning to all residual
-stream layers in a language model simultaneously. Our method is summarised in Figure 1 and
-described in Section 2.
-We then use several techniques to verify that our learned features represent a semantically mean-
-ingful decomposition of the activation space. First, we show that our features are on average more
-interpretable than neurons and other matrix decomposition techniques, as measured by autointer-
-pretability scores (Section 3) (Bills et al., 2023). Next, we show that we are able to pinpoint the
-features used for a set task more precisely than other methods (Section 4). Finally, we run case
-studies on a small number of features, showing that they are not only monosemantic but also have
-predictable effects on the model outputs, and can be used for fine-grained circuit detection. (Section
-5).
 
 
-2       TAKING F EATURES OUT OF S UPERPOSITION WITH S PARSE D ICTIONARY
-        L EARNING
-
-To take network features out of superposition, we employ techniques from sparse dictionary learn-
-ing (Olshausen & Field, 1997; Lee et al., 2006). Suppose that each of a given set of vectors
-                                                                                          ngt
-{xi }ni=1
-       vec
-           ⊂ Rd is composed of a sparse linear combination of unknown vectors {gj }j=1         ⊂ Rd ,
-           P                                                                         nvec
-i.e. xi = j ai,j gj where ai is a sparse vector. In our case, the data vectors {xi }i=1 are internal
-                                                                                          ngt
-activations of a language model, such as Pythia-70M (Biderman et al., 2023), and {gj }j=1     are un-
-known, ground truth network features. We would like learn a dictionary of vectors, called dictionary
-features, {fk }nk=1
-                 feat
-                      ⊂ Rd where for any network feature gj there exists a dictionary feature fk such
-that gj ≈ fk .
-To learn the dictionary, we train an autoencoder with a sparsity penalty term on its hidden activations.
-The autoencoder is a neural network with a single hidden layer of size dhid = Rdin , where din is
-the dimension of the language model internal activation vectors1 , and R is a hyperparameter that
-controls the ratio of the feature dictionary size to the model dimension. We use the ReLU activation
-function in the hidden layer (Fukushima, 1975). We also use tied weights for our neural network,
-meaning the weight matrices of the encoder and decoder are transposes of each other.2 Thus, on
-    1
-      We mainly study residual streams in Pythia-70M and Pythia 410-M, for which the residual streams are of
-size din = 512 and din = 1024, respectively (Biderman et al., 2023)
-    2
-      We use tied weights because (a) they encode our expectation that the directions which detect and define the
-feature should be the same or highly similar, (b) they halve the memory cost of the model, and (c) they remove
-
-
-                                                       2
-input vector x ∈ {xi }, our network produces the output x̂, given by
-                                     c = ReLU(M x + b)                                                   (1)
-                                                      T
-                                        x̂   = M c                                                       (2)
-                                               dhid
-                                                X   −1
-                                             =         ci fi                                             (3)
-                                                    i=0
-
-where M ∈ Rdhid ×din and b ∈ Rdhid are our learned parameters, and M is normalised row-wise3 .
-Our parameter matrix M is our feature dictionary, consisting of dhid rows of dictionary features fi .
-The output x̂ is meant to be a reconstruction of the original vector x, and the hidden layer c consists
-of the coefficients we use in our reconstruction of x.
-Our autoencoder is trained to minimise the loss function
-
-                                   L(x) =      ||x − x̂||22 + α||c||1                                    (4)
-                                               | {z }         | {z }
-                                             Reconstruction loss   Sparsity loss
-
-where α is a hyperparameter controlling the sparsity of the reconstruction. The ℓ1 loss term on c
-encourages our reconstruction to be a sparse linear combination of the dictionary features. It can be
-shown empirically (Sharkey et al., 2023) and theoretically (Wright & Ma, 2022) that reconstruction
-with an ℓ1 penalty can recover the ground-truth features that generated the data. For the further
-details of our training process, see Appendix B.
-
-3     I NTERPRETING D ICTIONARY F EATURES
-3.1   I NTERPRETABILITY AT S CALE
-
-Having learned a set of dictionary features, we want to understand whether our learned features dis-
-play reduced polysemanticity, and are therefore more interpretable. To do this in a scalable manner,
-we require a metric to measure how interpretable a dictionary feature is. We use the automated
-approach introduced in Bills et al. (2023) because it scales well to measuring interpretability on the
-thousands of dictionary features our autoencoders learn. In summary, the autointerpretability proce-
-dure takes samples of text where the dictionary feature activates, asks a language model to write a
-human-readable interpretation of the dictionary feature, and then prompts the language model to use
-this description to predict the dictionary feature’s activation on other samples of text. The correlation
-between the model’s predicted activations and the actual activations is that feature’s interpretability
-score. See Appendix A and Bills et al. (2023) for further details.
-We show descriptions and top-and-random scores for five dictionary features from the layer 1 resid-
-ual stream in Table 1. The features shown are the first five under the (arbitrary) ordering in the
-dictionary.
-
-3.2   S PARSE DICTIONARY FEATURES ARE MORE INTERPRETABLE THAN BASELINES
-
-We assess our interpretability scores against a variety of alternative methods for finding dictionaries
-of features in language models. In particular, we compare interpretability scores on our dictionary
-features to those produced by a) the default basis, b) random directions, c) Principal Component
-Analysis (PCA), and d) Independent Component Analysis (ICA). For the random directions and for
-the default basis in the residual stream, we replace negative activations with zeros so that all feature
-activations are nonnegative 4 .
-ambiguity about whether the learned direction should be interpreted as the encoder or decoder direction. They
-do not reduce performance when training on residual stream data but we have observed some reductions in
-performance when using MLP data.
-    3
-      Normalisation of the rows (dictionary features) prevents the model from reducing the sparsity loss term
-||c||1 by increasing the size of the feature vectors in M .
-    4
-      For PCA we use an online estimation approach and run the decomposition on the same quantity of data we
-used for training the autoencoders. For ICA, due to the slower convergence times, we run on only 2GB of data,
-approximately 4 million activations for the residual stream and 1m activations for the MLPs.
+                                                                                                            1
+of the distribution decay to zero. While the location parameter and the scale parameter are akin to the mean
+and the variance of the distribution, they are not the same. If the tail parameter is big enough (ξ ≥ 1/2),
+the distribution becomes fat tailed and variance does not converge. Similarly, for ξ ≥ 1 the average does not
+exist either. The tail parameter governs how skewed the distribution is and shows how much distributions
+of extremes can depart from Gaussian statistics, which are sometimes used to model tails of distributions of
+extreme events [1, 9]. For these reasons, the tail parameter is considered the most important and describes
+a kind of behaviour not present in Gaussian statistics.
+    A problem arises when the variable under study is not stationary. Although there are some results of
+convergence to a GEV for extremes of variables that become stationary sufficiently fast [10], non-stationarity,
+in general, prevents convergence. Assuming that the underlying processes generating the extremes are
+sufficiently fast compared to the drift of the system, an alternative approach is possible: To make the
+parameters of the GEV distribution functions of time, under the assumption that the extremes still follow
+approximately a GEV distribution, albeit as one that shifts [1, 11, 12, 13].
+    As climate change makes the distributions of extremes shift, taking non-stationarity into account in
+modeling becomes a necessity [14]. This allows us to integrate new and past data into the analysis. The
+temporal shift in extreme statistics in climate data is, in many cases, due to the comparatively slow drift
+induced by anthropogenic warming in the fast dynamics of atmospheric variables such as temperature and
+precipitation [12, 13]. But there are also other variables, for example in hydrology, for which the non-
+stationarity may come from other environmental changes, such as land use or water management, or take
+the shape of a point change, a change in the statistics brought about by a one time event [14].
+    In this paper, we extend the method of analysis from [11] based on a covariate to a climate system
+that exhibits abrupt transitions between two different climate states. This type of change is fundamentally
+different from the slow drift investigated in other studies. From a dynamical perspective, it is known that
+changes in the attracting set of the dynamics are related to the changes in the parameters of the extreme
+value laws that describe extremes of observables in a dynamical system [15, 16, 17]. Thus, it is possible to
+observe changes in the tail parameter, which are, in many cases, not expected or not thought to be reliable
+if the change is small because it is difficult to estimate the tail parameter accurately [11, 12].
+    The system chosen to study is a low resolution (∼ 3◦ × 3◦ ) CCSM4 simulation containing Dansgaard-
+Oeschger events presented in ref.[18]. This simulation has LGM conditions, but some variables, such as the
+atmospheric CO2 concentrations and the land ice sheet sizes, are fixed; see ref.[18] for more information. In
+particular, we focus on the simulation that has 200 ppm of atmospheric CO2 concentration. This simulation
+is almost 8000 years long, with monthly resolution and exhibits spontaneous oscillations between a stadial
+and interstadial climate.
+    We study cold extremes, which are directly influenced by the switching between states and are a source
+of concern for future AMOC tipping scenarios. Previous work that has explored similar topics is [6], in which
+a full hysteresis experiment is conducted and extreme value distributions for AMOC ON/OFF scenarios are
+computed. Other similar work is [5] in which the impact of a reduced AMOC in cold spells is investigated,
+but from a dynamical perspective and without the use of Extreme Value Theory. Another study that has
+looked at changes in the parameters of GEV distributions is [3], in which they study how the temperature
+extremes change over the USA in an increase of CO2 scenario.
+    Our approach is fundamentally different and relies on viewing the parameters of the GEV distribution
+themselves as observables conveying some physical meaning, which can be related to the underlying phys-
+ical processes generating the extremes. From a statistical point of view, knowing the possible drivers of
+non-stationarity for the extremes is useful. Since assessing whether data is non-stationary or not can be
+misleading, a physical mechanism providing a plausible cause for non-stationarity is important evidence [14].
+   The paper is organized as follows. In the second section, we employ a linear model that assumes that
+the temperatures vary approximately linearly with the strength of the AMOC. This model is unrealistic
+but allows us to perform statistical tests for non-stationarity and detect areas where the changes in the
+parameters are significant. In the third section, we study how the parameters change against the AMOC in
+these areas without imposing a model. This shows a more realistic dependence and reveals many different
+behaviours that are realized simultaneously in the data. In the fourth section, we try to relate some of the
 
 
-                                                       3
+                                                      2
+teleconnections observed to physical processes and proxy records. In the fifth section, we try to envision
+how this information about the climate could be used to extrapolate to other climate states or models and
+discuss its limitations.
+
+
+2     Linear model for trend detection
+In this section, we use a linear model to see in which regions of the world significant patterns are found.
+Figure 1 shows how the data are visualized. The minimum annual temperature in two chosen locations is
+plotted against time in the top left panels and against the AMOC strength in the top right panels. Also,
+the AMOC strength is plotted against time in the bottom panel. The minima are colour-coded so that blue
+points correspond to the stadial state, red points correspond to the interstadial state, yellow corresponds to
+the transition from stadial to interstadial (S→I), and green corresponds to the transition from interstadial to
+stadial (I→S). Colouring of the data series is lag-corrected to maximize the absolute value of the correlation
+between the temperatures and the AMOC. The division of the data into stadial and interstadial has been
+done algorithmically (see Appendix A), and the points corresponding to the transitions are left out of the
+analysis in this paper.
+    The oscillation of the AMOC strength is an important part of the D-O oscillations [19]. Due to the
+feedbacks present between the temperatures, sea ice, and ocean currents [18], the AMOC strength shows the
+same abrupt changes as the temperatures do while retaining a significant correlation with the temperatures
+within each state. This makes it an ideal candidate for the following model
+
+
+                               µ(t) = µ0 + µ1 · COV(t)
+                                 σ(t) = eσ0 +σ1 ·COV(t)    COV(t) = AMOC(t)                                (1)
+                               ξ(t) = ξ0 + ξ1 · COV(t)
+
+   This is a linear non-stationary GEV model. The model assumes that the parameters of the GEV distri-
+bution change as a linear function of a time dependent covariate, in this case, the AMOC strength AMOC(t).
+The parameter σ is taken to be the exponential of a linear function to ensure that it remains greater than
+zero. Note that other variables are more significantly correlated with the minima (e.g., the average tem-
+perature in each location), and thus they linearize the data better. However, they can obscure the patterns
+that we are looking for because of the excess correlation that might reflect inter-annual variability in each
+location. (Using the global average temperature instead of the AMOC strength should produce very similar
+results since they are very strongly correlated ≈ 0.856).
+     An advantage of the linear model is that it allows for testing non-stationarity in each of the parameters
+[11]. Non-stationarity may be present only in some parameters of the model, and the test thus serves as a
+tool to detect when a significant trend can be identified in any of the different parameters. This means that
+for each data series we have 8 possible models to fit, corresponding to all the possible choices of parameters
+that could be stationary. Thus, there is a stationary model, 3 models in which only one parameter changes,
+3 models in which two parameters change, and the full non-stationary model where all parameters change
+over time. We have fitted all the models and performed pairwise tests whenever possible to find the best
+fitting model at a given significance level. The method is fully explained in Appendix B.
+
+
+2.1    Results
+Figure 2 shows the results of the statistical analysis at confidence level 99.999%. Note that the confidence
+level should not be interpreted as confidence that a linear relationship exists between the parameters of the
+GEV that fit data and the covariate, but rather as evidence that a linear relationship between them explains
+the temporal evolution of the data better than a stationary model in any given non-stationary parameter.
+   Trends are detected in almost every spatial dimension of the model. There are weak trends present almost
+everywhere except in some areas around the equator, in the Pacific Ocean, the centre/south of Africa, and
+
+
+                                                      3
 

@@ -47,14 +47,14 @@ net.fetch = _no_network
 
 class TestArxivAtom(unittest.TestCase):
     def test_parse(self):
-        recs = S.parse_arxiv_atom(fixture("arxiv_2309.08600.atom", "rb"))
+        recs = S.parse_arxiv_atom(fixture("arxiv_2609.03664.atom", "rb"))
         self.assertEqual(len(recs), 1)
         r = recs[0]
-        self.assertEqual(r["arxiv"], "2309.08600")
-        self.assertEqual(r["title"], "Sparse Autoencoders Find Highly Interpretable Features in Language Models")
-        self.assertEqual(r["year"], 2023)
-        self.assertEqual(r["authors"][0], "Hoagy Cunningham")
-        self.assertIn("superposition", r["abstract"])
+        self.assertEqual(r["arxiv"], "2609.03664")
+        self.assertEqual(r["title"], "Cold Extremes during Dansgaard-Oeschger Oscillations")
+        self.assertEqual(r["year"], 2026)
+        self.assertEqual(r["authors"][0], "Ignacio del Amo")
+        self.assertIn("interstadial", r["abstract"])
 
 
 class TestS2(unittest.TestCase):
@@ -69,15 +69,15 @@ class TestS2(unittest.TestCase):
 class TestHtmlSections(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.doc = D.from_html(fixture("arxiv_2309.08600.html"))
+        cls.doc = D.from_html(fixture("arxiv_2609.03664.html"))
 
     def test_title_and_sections(self):
         d = self.doc
-        self.assertEqual(d["title"], "Sparse Autoencoders Find Highly Interpretable Features in Language Models")
+        self.assertEqual(d["title"], "Cold Extremes during Dansgaard-Oeschger Oscillations")
         labels = [D.label(s) for s in d["sections"]]
         self.assertIn("Abstract", labels)
         self.assertIn("1 Introduction", labels)
-        self.assertIn("3.1 Interpretability at Scale", labels)
+        self.assertIn("3.1 Non-parametric model", labels)
         self.assertGreater(len(d["sections"]), 20)
 
     def test_figures_tables(self):
@@ -86,7 +86,7 @@ class TestHtmlSections(unittest.TestCase):
 
     def test_no_bibliography_noise_in_abstract(self):
         ab = next(s for s in self.doc["sections"] if s["title"] == "Abstract")
-        self.assertIn("polysemanticity", ab["text"])
+        self.assertIn("interstadial", ab["text"])
         self.assertLess(len(ab["text"].split()), 400)
 
 
@@ -98,26 +98,34 @@ class TestPdfSections(unittest.TestCase):
         labels = [D.label(s) for s in d["sections"]]
         self.assertIn("Abstract", labels)
         self.assertIn("1 Introduction", labels)
-        self.assertIn("2.1 The structural probe", labels)
+        self.assertIn("2.1 Dough and flour", labels)
         # Columns were split: the abstract reads as one passage.
         ab = next(s for s in d["sections"] if s["title"] == "Abstract")
-        self.assertIn("In this work, we propose a structural probe, which evaluates whether syntax trees are embedded "
-                      "in a linear transformation", " ".join(ab["text"].split()))
+        self.assertIn("We measured the time a plain wheat dough needs to double its volume at five room temperatures "
+                      "between 16 and 32 degrees Celsius.", " ".join(ab["text"].split()))
 
-    def test_single_column_small_caps(self):
+    def test_single_column(self):
         text, ncols = D.unlayout(fixture("onecol_p1-3.txt"))
         self.assertEqual(ncols, 0)
         d = D.from_pdf_text(text)
         labels = [D.label(s) for s in d["sections"]]
         self.assertIn("1 Introduction", labels)
-        self.assertIn("3.1 Interpretability at Scale", labels)
+        self.assertIn("2.1 Results", labels)
+
+    def test_small_caps_headings(self):
+        # pdftotext prints a small-caps heading with a space after each capital.
+        d = D.from_pdf_text("1 I NTRODUCTION\n\nBread rises faster in a warm room.\n\n"
+                            "2 M ETHOD\n\n2.1 D OUGH AND F LOUR\n\nWe used plain wheat flour.\n")
+        labels = [D.label(s) for s in d["sections"]]
+        self.assertIn("1 Introduction", labels)
+        self.assertIn("2.1 Dough and Flour", labels)
 
     def test_heading_rules(self):
         self.assertEqual(D.is_heading("3.2    Tasks and evaluation", True, ""), ("3.2", "Tasks and evaluation"))
-        self.assertIsNone(D.is_heading("2. Using this experience of testing on the tar-", True, "get model"))
-        self.assertIsNone(D.is_heading("GPT-3 350M", True, ""))
+        self.assertIsNone(D.is_heading("2. Using this experience of baking in the sum-", True, "mer months"))
+        self.assertIsNone(D.is_heading("Oven-2 350W", True, ""))
         self.assertIsNone(D.is_heading("Figure 3 Accuracy", True, ""))
-        self.assertEqual(D.fix_smallcaps("3.1 I NTERPRETABILITY AT S CALE"), "3.1 Interpretability at Scale")
+        self.assertEqual(D.fix_smallcaps("2.1 D OUGH AND F LOUR"), "2.1 Dough and Flour")
 
     def test_bare_heading_needs_a_blank_line_before_it(self):
         # A single word with no number is a heading only when a blank line comes before it;
@@ -128,41 +136,41 @@ class TestPdfSections(unittest.TestCase):
 
 
 class TestQuote(unittest.TestCase):
-    TEXT = ("One hurdle is polysemanticity, where neurons activate in multiple, semantically dis-\n"
-            "tinct contexts. We use “sparse autoencoders” to reconstruct the internal activations.\n\n"
-            "The best probe was correct on 58% of sentences, while hu- man agreement was 94%.")
+    TEXT = ("One problem is uneven heating, where loaves bake at several, clearly dis-\n"
+            "tinct rates. We use a “water bath” to keep the dough at one temperature.\n\n"
+            "The best oven was right on 58% of loaves, while hu- man tasters agreed on 94%.")
 
     def test_verbatim_across_line_break_hyphen_and_quotes(self):
-        r = Q.check(self.TEXT, "neurons activate in multiple, semantically distinct contexts")
+        r = Q.check(self.TEXT, "loaves bake at several, clearly distinct rates")
         self.assertEqual(r["status"], Q.VERBATIM)
-        r = Q.check(self.TEXT, 'We use "sparse autoencoders" to reconstruct')
+        r = Q.check(self.TEXT, 'We use a "water bath" to keep the dough')
         self.assertEqual(r["status"], Q.VERBATIM)
-        r = Q.check(self.TEXT, "while human agreement was 94%")
+        r = Q.check(self.TEXT, "while human tasters agreed on 94%")
         self.assertEqual(r["status"], Q.VERBATIM)
 
     def test_hyphen_inside_a_word(self):
-        text = "A nonlinear probe was trained on each layer after fine-\ntuning the model."
+        text = "A nonlinear curve was fitted to each batch after re-\nheating the oven."
         # The paper has no hyphen where the quote has one: close, but not the paper's words.
-        r = Q.check(text, "A non-linear probe was trained on each layer")
+        r = Q.check(text, "A non-linear curve was fitted to each batch")
         self.assertEqual(r["status"], Q.NEAR)
         self.assertIn("hyphens inside words", r["note"])
         # A hyphen at a line break may belong to the word or to the line break: either reading is verbatim.
-        r = Q.check(text, "after fine-tuning the model")
+        r = Q.check(text, "after re-heating the oven")
         self.assertEqual(r["status"], Q.VERBATIM)
-        r = Q.check(text, "after finetuning the model")
+        r = Q.check(text, "after reheating the oven")
         self.assertEqual(r["status"], Q.VERBATIM)
 
     def test_near_changed_number(self):
-        r = Q.check(self.TEXT, "The best probe was correct on 68% of sentences, while human agreement was 94%.")
+        r = Q.check(self.TEXT, "The best oven was right on 68% of loaves, while human tasters agreed on 94%.")
         self.assertEqual(r["status"], Q.NEAR)
         self.assertTrue(any(d["paper"] == "58%" for d in r["diff"]))
 
     def test_case_only(self):
-        r = Q.check(self.TEXT, "the best probe was correct on 58% of sentences")
+        r = Q.check(self.TEXT, "the best oven was right on 58% of loaves")
         self.assertEqual(r["status"], Q.NEAR)
 
     def test_not_found(self):
-        r = Q.check(self.TEXT, "Dense probes reveal deceptive circuits in frontier models.")
+        r = Q.check(self.TEXT, "Cold kitchens bring out hidden flavours in every sourdough.")
         self.assertEqual(r["status"], Q.NOT_FOUND)
 
     def test_normalise_map(self):
@@ -174,34 +182,35 @@ class TestQuote(unittest.TestCase):
 class TestReferences(unittest.TestCase):
     MD = """# Notes
 
-See arXiv:2309.08600 in the text.
+See arXiv:2609.03664 in the text.
 
 ## References
 
-1. Cunningham, H. et al. (2023). Sparse Autoencoders Find Highly Interpretable Features in Language Models. arXiv:2309.08600
-2. Lin, S., Hilton, J., Evans, O. (2021). TruthfulQA: Measuring How Models Mimic Human Falsehoods. ACL 2022.
-3. Some post. https://www.lesswrong.com/posts/vJFdjigzmcXMhNTsx/simulators
-4. A paper, https://doi.org/10.1038/nature14539 and https://openreview.net/forum?id=jE8xbmvFin
+1. del Amo, I., Ditlevsen, P. (2026). Cold Extremes during Dansgaard-Oeschger Oscillations. arXiv:2609.03664
+2. Example, A., Sample, B. (2021). Slow Loaves: Measuring How Bread Dough Rises in Cold Kitchens. A Made-Up Journal 2022.
+3. Some post. https://www.lesswrong.com/posts/madeUpPostId12345/a-made-up-post
+4. A paper, https://doi.org/10.5555/12345678 and https://openreview.net/forum?id=exampleId1
 """
 
     def test_extract(self):
         es = R.extract(self.MD)
         kinds = [(e["kind"], e.get("id")) for e in es]
-        self.assertIn(("arxiv", "2309.08600"), kinds)
-        self.assertIn(("lw", "vJFdjigzmcXMhNTsx"), kinds)
-        self.assertIn(("doi", "10.1038/nature14539"), kinds)
-        self.assertIn(("openreview", "jE8xbmvFin"), kinds)
+        self.assertIn(("arxiv", "2609.03664"), kinds)
+        self.assertIn(("lw", "madeUpPostId12345"), kinds)
+        self.assertIn(("doi", "10.5555/12345678"), kinds)
+        self.assertIn(("openreview", "exampleId1"), kinds)
         text = [e for e in es if e["kind"] == "text"]
         self.assertEqual(len(text), 1)
-        self.assertEqual(R.guess_title(text[0]["text"]), "TruthfulQA: Measuring How Models Mimic Human Falsehoods")
+        self.assertEqual(R.guess_title(text[0]["text"]), "Slow Loaves: Measuring How Bread Dough Rises in Cold Kitchens")
 
     def test_arxiv_doi_maps_to_arxiv(self):
-        ids = R.ids_in("doi:10.48550/arXiv.2412.14093")
-        self.assertEqual(ids[0], {"kind": "arxiv", "id": "2412.14093"})
+        ids = R.ids_in("doi:10.48550/arXiv.2609.03664")
+        self.assertEqual(ids[0], {"kind": "arxiv", "id": "2609.03664"})
 
     def test_title_match(self):
-        self.assertGreater(R.title_match("Attention Is All You Need", "Vaswani et al. Attention is all you need."), 0.9)
-        self.assertLess(R.title_match("Attention Is All You Need", "Language Models are Few-Shot Learners"), 0.3)
+        real = "Cold Extremes during Dansgaard-Oeschger Oscillations"
+        self.assertGreater(R.title_match(real, "del Amo et al. Cold extremes during Dansgaard-Oeschger oscillations."), 0.9)
+        self.assertLess(R.title_match(real, "Slow Loaves: Measuring How Bread Dough Rises in Cold Kitchens"), 0.3)
 
 
 class TestUrlChecks(unittest.TestCase):
@@ -272,8 +281,8 @@ class TestUrlChecks(unittest.TestCase):
 
 class TestLibrary(unittest.TestCase):
     def test_openreview_id_shape(self):
-        self.assertEqual(L.resolve("openreview:jE8xbmvFin"), ("openreview", "jE8xbmvFin"))
-        self.assertEqual(L.resolve("https://openreview.net/forum?id=F76bwRSLeK"), ("openreview", "F76bwRSLeK"))
+        self.assertEqual(L.resolve("openreview:exampleId1"), ("openreview", "exampleId1"))
+        self.assertEqual(L.resolve("https://openreview.net/forum?id=exampleId2"), ("openreview", "exampleId2"))
         for bad in ("openreview:../../x", "openreview:a/b", "openreview:a b",
                     "https://openreview.net/forum?id=../../etc/passwd"):
             with self.assertRaises(L.LitError, msg=bad) as cm:
@@ -281,7 +290,7 @@ class TestLibrary(unittest.TestCase):
             self.assertIn("not a valid note id", str(cm.exception))
 
     def test_a_key_is_one_folder_name(self):
-        for kind, ident in (("arxiv", "2309.08600v2"), ("arxiv", "hep-th/9901001"), ("openreview", "jE8xbmvFin"),
+        for kind, ident in (("arxiv", "2609.03664v1"), ("arxiv", "hep-th/9901001"), ("openreview", "exampleId1"),
                             ("lw", "abcDEF1234567"), ("doi", "10.1000/XYZ(1)"), ("local", "/tmp/My Notes.txt")):
             key = L.key_for(kind, ident)
             self.assertTrue(L.KEY_RE.fullmatch(key), key)
@@ -298,37 +307,38 @@ class TestLibrary(unittest.TestCase):
 
     def test_local_file_keeps_only_its_base_name(self):
         with tempfile.TemporaryDirectory() as d:
-            p = os.path.join(d, "probe notes.txt")
+            p = os.path.join(d, "bread notes.txt")
             with open(p, "w", encoding="utf-8") as f:
-                f.write("Notes on probes\n\nA probe is a small model trained on activations.\n")
+                f.write("Notes on bread\n\nA starter is a culture of flour and water.\n")
             meta, document = L.get_local(p)
-        self.assertEqual(meta["path"], "probe notes.txt")
+        self.assertEqual(meta["path"], "bread notes.txt")
         self.assertEqual(meta["url"], "")
-        self.assertEqual(meta["fulltext_source"], "probe notes.txt (text)")
+        self.assertEqual(meta["fulltext_source"], "bread notes.txt (text)")
         self.assertNotIn(d, json.dumps(meta))
         self.assertTrue(document["sections"])
 
 
 class TestMerge(unittest.TestCase):
     def test_merge_by_id_and_title(self):
-        a = dict(S.blank("arxiv"), title="Sparse Autoencoders Find Highly Interpretable Features in Language Models",
-                 arxiv="2309.08600", year=2023, rank=0)
-        b = dict(S.blank("openalex"), title="Sparse autoencoders find highly interpretable features in language models.",
-                 doi="10.48550/arxiv.2309.08600", cites=1000, year=2023, rank=2)
-        c = dict(S.blank("openreview"), title="Sparse Autoencoders Find Highly Interpretable Features in Language Models",
-                 openreview="F76bwRSLeK", year=2024, rank=0)
-        d = dict(S.blank("arxiv"), title="Toy Models of Superposition", arxiv="2209.10652", rank=1)
+        # Made-up records: the ids are placeholders, not real papers.
+        a = dict(S.blank("arxiv"), title="Rise Time of Bread Dough at Five Kitchen Temperatures",
+                 arxiv="0000.00001", year=2021, rank=0)
+        b = dict(S.blank("openalex"), title="Rise time of bread dough at five kitchen temperatures.",
+                 doi="10.48550/arxiv.0000.00001", cites=1000, year=2021, rank=2)
+        c = dict(S.blank("openreview"), title="Rise Time of Bread Dough at Five Kitchen Temperatures",
+                 openreview="exampleId2", year=2022, rank=0)
+        d = dict(S.blank("arxiv"), title="Crumb Structure of Rye Loaves", arxiv="0000.00002", rank=1)
         m = SR.merge([a, b, c, d])
         self.assertEqual(len(m), 2)
-        big = next(x for x in m if x["arxiv"] == "2309.08600")
+        big = next(x for x in m if x["arxiv"] == "0000.00001")
         self.assertEqual(set(big["sources"]), {"arxiv", "openalex", "openreview"})
-        self.assertEqual(big["openreview"], "F76bwRSLeK")
+        self.assertEqual(big["openreview"], "exampleId2")
         self.assertEqual(big["cites"], 1000)
-        self.assertEqual(big["year"], 2023)
-        self.assertEqual(SR.display_id(big), "arXiv:2309.08600")
+        self.assertEqual(big["year"], 2021)
+        self.assertEqual(SR.display_id(big), "arXiv:0000.00001")
 
     def test_title_key(self):
-        self.assertEqual(title_key("Toy Models of Superposition."), title_key("toy models of  superposition"))
+        self.assertEqual(title_key("Crumb Structure of Rye Loaves."), title_key("crumb structure of  rye loaves"))
 
 
 if __name__ == "__main__":

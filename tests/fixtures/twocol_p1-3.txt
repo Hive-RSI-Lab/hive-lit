@@ -1,196 +1,142 @@
-       A Structural Probe for Finding Syntax in Word Representations
+        Rise Time of Bread Dough at Five Kitchen Temperatures
+                                       A. Example and B. Sample
+            A made-up paper written as a test file. Every number in it is invented.
 
 
-                    John Hewitt                                    Christopher D. Manning
-                 Stanford University                                 Stanford University
-              a@example.com                                       b@example.com
+Abstract                                                     less often written down is how large the effect is over
+                                                             the range of temperatures found in ordinary homes.
+Home bakers are often told to leave dough until it has          This paper reports a small and deliberately plain
+doubled in size, but few recipes say how long that           experiment. We kept the recipe fixed and changed
+takes in a cool or a warm kitchen. We measured               only the temperature of the room. We asked three
+the time a plain wheat dough needs to double its             questions. How long does the dough take to double
+volume at five room temperatures between 16 and              at each temperature? How much do batches differ
+32 degrees Celsius. Each temperature was tried with          from one another when nothing is changed on pur-
+twelve batches made from the same flour, water, salt         pose? And is there a rule simple enough to remember
+and yeast. The doubling time fell from about four            that predicts the waiting time?
+hours in the coolest room to just over one hour in the          We do not study flavour, crumb or crust, although
+warmest. The spread between batches was largest in           all three depend on the length of the rise. We also
+the cool room and smallest near 28 degrees. A simple         leave out sourdough, enriched doughs with butter or
+rule fits the measurements well: every four degrees of       sugar, and the second rise after shaping. Each of
+extra warmth shortens the wait by roughly a third.           these would need an experiment of its own.
+We give a small table that a baker can read a waiting           The rest of the paper is organised as follows. Sec-
+time from.                                                   tion 2 describes the dough, the rooms and the way
+                                                             the rise was measured. Section 3 gives the doubling
+1   Introduction                                             times and the spread between batches. Section 4
+                                                             discusses what the numbers mean for a baker and
+Bread recipes describe the first rise in two ways.           where the simple rule stops working, and Section 5
+Some give a time, such as one hour. Others give              sums up.
+a sign to look for, most often that the dough should
+double in size. The two descriptions agree only in the       2     Method
+kitchen where the recipe was written. A baker in a
+cold house who waits one hour finds a dense dough,           2.1    Dough and flour
+and a baker in a hot summer kitchen who waits one
+hour may find that the dough has already risen and           Every batch used the same recipe: 500 grams of
+fallen back.                                                 white bread flour, 325 grams of water, 10 grams
+   The cause is well understood in outline. Yeast            of salt and 5 grams of dried yeast. All the flour
+turns sugars into carbon dioxide and alcohol, and the        came from one sack, which was kept closed between
+gas is held by the stretchy network that forms when          sessions. The water was weighed, not measured by
+wheat flour is wetted and kneaded. Yeast works               volume, and was brought to the temperature of the
+faster when it is warm, up to a point, so a warm             room before mixing so that the dough started at the
+dough fills with gas sooner than a cool one. What is         temperature it would be kept at.
+
+
+
+                                                         1
+   The dough was mixed by hand for two min-                   3     Results
+utes, rested for ten minutes, and then kneaded for
+eight minutes on a bare worktop. The same person              3.1    Doubling time
+kneaded every batch. After kneading, the dough was
+shaped into a ball and placed in a straight-sided clear       Table 1 lists the mean doubling time at each tem-
+container with a lid. Straight sides matter, because          perature. At 16 degrees the dough needed a little
+the height of the dough is then in proportion to its          over four hours. At 32 degrees it needed sixty-six
+volume.                                                       minutes. The time drops quickly between 16 and 24
+                                                              degrees and more slowly after that.
+2.2   Rooms and temperatures
+                                                                  Room (C)     Mean (min)        Spread (min)
+Five temperatures were used: 16, 20, 24, 28 and 32                      16            245                  21
+degrees Celsius. The two coolest were reached in an                     20            168                  14
+unheated store room in winter, with a small heater                      24            118                   9
+on a thermostat for the 20 degree runs. The three                       28             84                   6
+warmer settings used a cupboard fitted with a lamp                      32             66                   7
+and the same thermostat. A thermometer beside the
+container was read every fifteen minutes, and a run           Table 1: Doubling time of the dough at five room
+was thrown away if any reading was more than one              temperatures. Twelve batches at each tempera-
+degree from the target. Four runs were lost in this           ture. The spread is the standard deviation between
+way and were repeated on a later day.                         batches.
+  Twelve batches were made at each temperature,
+three a day over four days, which gives sixty batches            Going from one row of the table to the next, the
+in all. The order of the temperatures was shuffled            time is multiplied by 0.69, 0.70, 0.71 and 0.79. The
+between weeks so that a slow change in the flour or           first three steps are close to one another, so over the
+the yeast would not line up with temperature.                 range from 16 to 28 degrees each extra four degrees
+                                                              removes about three tenths of the waiting time. The
+2.3   Measuring the rise                                      last step is smaller. At 32 degrees the dough is still
+                                                              faster than at 28, but by less than the rule predicts.
+A strip of paper marked in millimetres was taped
+to the outside of each container. The height of the           3.2    Spread between batches
+dough was read at the start and then every ten min-
+utes. Because the top of a rising dough is domed,             Batches made on the same day at the same temper-
+the reading was taken where the dough met the wall            ature did not double at the same moment. In the
+of the container, which is easy to see through clear          coolest room the standard deviation was 21 minutes,
+plastic.                                                      and the slowest and fastest of the twelve batches were
+   The doubling time of a batch is the first time at          more than an hour apart. Near 28 degrees the stan-
+which the height reached twice the starting height.           dard deviation was 6 minutes. As a share of the
+When the height passed that mark between two read-            mean, the spread stays between seven and eleven
+ings, the time was found by drawing a straight line           percent at every temperature, so a slow rise is not
+between them. Readings went on for thirty minutes             less regular than a fast one. It only looks that way
+past doubling to check that the dough was still rising        on a clock.
+and had not collapsed.                                           We looked for a pattern in which batches were
+                                                              slow. The day of the week, the position on the shelf
+                                                              and the order of mixing explained nothing that we
+                                                              could see. Batches from the last quarter of the sack
+
+
+                                                          2
+were about four percent slower than those from the
+first quarter, which may point to the yeast tin having
+been opened many times by then.
+
+4   Discussion
+
+For a baker the main result is that the time printed
+in a recipe is right at one temperature only. A recipe
+that says one and a half hours was probably written
+in a kitchen at about 27 degrees. In a room at 20
+degrees the same dough needs nearly twice as long,
+and at 16 degrees close to three times as long. The
+sign of doubling is the better guide, and a straight-
+sided container makes it easy to judge.
+   The rule of a third per four degrees is rough, and
+it has limits. It was measured between 16 and 28 de-
+grees. Above that the gain shrinks, and other work
+with yeast suggests that somewhere beyond 35 de-
+grees the rise slows down again. Below 16 degrees
+we have no measurements at all. A refrigerator, at
+about 4 degrees, is far outside the range, and the rule
+should not be stretched to it.
+   The experiment has other limits too. One flour,
+one yeast and one amount of water were used. A wet-
+ter dough or a wholemeal flour may respond differ-
+ently. The kneading was done by one person, which
+keeps the batches alike but means that we cannot
+say how much kneading matters. Finally, height in
+a container measures the volume of the dough and
+not the amount of gas made, since some gas escapes
+through the surface.
+
+5   Conclusion
+
+A plain wheat dough doubled in about four hours at
+16 degrees Celsius and in about one hour at 32 de-
+grees. Between 16 and 28 degrees every extra four de-
+grees shortened the wait by roughly a third. Batches
+differed from one another by about a tenth of the
+waiting time, whatever the temperature. Recipes
+would serve bakers in cool and warm kitchens bet-
+ter if they gave the temperature at which their times
+were measured, or a small table like ours.
 
 
 
 
-                     Abstract                                  In this work, we propose a structural probe, a
-                                                            simple model which tests whether syntax trees are
-    Recent work has improved our ability to                 consistently embedded in a linear transformation
-    detect linguistic knowledge in word repre-
-                                                            of a neural network’s word representation space.
-    sentations. However, current methods for
-    detecting syntactic knowledge do not test               Tree structure is embedded if the transformed space
-    whether syntax trees are represented in their           has the property that squared L2 distance between
-    entirety. In this work, we propose a structural         two words’ vectors corresponds to the number of
-    probe, which evaluates whether syntax trees             edges between the words in the parse tree. To re-
-    are embedded in a linear transformation of a            construct edge directions, we hypothesize a linear
-    neural network’s word representation space.             transformation under which the squared L2 norm
-    The probe identifies a linear transformation
-                                                            corresponds to the depth of the word in the parse
-    under which squared L2 distance encodes the
-    distance between words in the parse tree, and
-                                                            tree. Our probe uses supervision to find the trans-
-    one in which squared L2 norm encodes depth              formations under which these properties are best
-    in the parse tree. Using our probe, we show             approximated for each model. If such transfor-
-    that such transformations exist for both ELMo           mations exist, they define inner products on the
-    and BERT but not in baselines, providing                original space under which squared distances and
-    evidence that entire syntax trees are embedded          norms encode syntax trees – even though the mod-
-    implicitly in deep models’ vector geometry.             els being probed were never given trees as input or
-                                                            supervised to reconstruct them. This is a structural
-1   Introduction
-                                                            property of the word representation space, akin to
-As pretrained deep models that build contextual-            vector offsets encoding word analogies (Mikolov
-ized representations of language continue to pro-           et al., 2013). Using our probe, we conduct a tar-
-vide gains on NLP benchmarks, understanding                 geted case study, showing that ELMo (Peters et al.,
-what they learn is increasingly important. To this          2018a) and BERT (Devlin et al., 2019) representa-
-end, probing methods are designed to evaluate the           tions embed parse trees with high consistency in
-extent to which representations of language en-             contrast to baselines, and in a low-rank space.1
-code particular knowledge of interest, like part-of-           In summary, we contribute a simple structural
-speech (Belinkov et al., 2017), morphology (Peters          probe for finding syntax in word representations
-et al., 2018a), or sentence length (Adi et al., 2017).      (§2), and experiments providing insights into
-Such methods work by specifying a probe (Con-               and examples of how a low-rank transformation
-neau et al., 2018; Hupkes et al., 2018), a supervised       recovers parse trees from ELMo and BERT rep-
-model for finding information in a representation.          resentations (§3,4). Finally, we discuss our probe
-   Of particular interest, both for linguistics             and limitations in the context of recent work (§5).
-and for building better models, is whether deep
-models’ representations encode syntax (Linzen,               2   Methods
-2018). Despite recent work (Kuncoro et al., 2018;
-Peters et al., 2018b; Tenney et al., 2019), open            Our goal is to design a simple method for testing
-questions remain as to whether deep contextual              whether a neural network embeds each sentence’s
-models encode entire parse trees in their word                 1
-                                                                 We release our code at https://github.com/
-representations.                                             john-hewitt/structural-probes.
-
-                                                       4129
-                                Proceedings of NAACL-HLT 2019, pages 4129–4138
-           Minneapolis, Minnesota, June 2 - June 7, 2019. c 2019 Association for Computational Linguistics
-dependency parse tree in its contextual word rep-               where i, j index the word in the sentence.2 The
-resentations – a structural hypothesis. Under a rea-            parameters of our probe are exactly the matrix B,
-sonable definition, to embed a graph is to learn a              which we train to recreate the tree distance between
-vector representation of each node such that geom-              all pairs of words (wi` , wj` ) in all sentences T ` in
-etry in the vector space—distances and norms—                   the training set of a parsed corpus. Specifically, we
-approximates geometry in the graph (Hamilton                    approximate through gradient descent:
-et al., 2017). Intuitively, why do parse tree dis-                        X 1 X
-tances and depths matter to syntax? The dis-                        min           dT ` (wi` , wj` ) − dB (h`i , h`j )2
-tance metric—the path length between each pair
-                                                                    B      |s` |2
-                                                                           `        i,j
-of words—recovers the tree T simply by identify-
-ing that nodes u, v with distance dT (u, v) = 1 are             where |s` | is the length of the sentence; we nor-
-neighbors. The node with greater norm—depth in                  malize by the square since each sentence has |s` |2
-the tree—is the child. Beyond this identity, the dis-           word pairs.
-tance metric explains hierarchical behavior. For ex-            2.2       Properties of the structural probe
-ample, the ability to perform the classic hierarchy
-test of subject-verb number agreeement (Linzen                  Because our structural probe defines a valid dis-
-et al., 2016) in the presence of “attractors” can be            tance metric, we get a few nice properties for free.
-explained as the verb (V) being closer in the tree to           The simplest is that distances are guaranteed non-
-its subject (S) than to any of the attactor nouns:              negative and symmetric, which fits our probing
-                                .
-                                                                task. Perhaps most importantly, the probe tests the
-                     .                   .
-           S   ...       A1   ...   A2       ...
-                                                   .
-                                                   V   ...
-                                                                concrete claim that there exists an inner product on
-                                                                the representation space whose squared distance—
-Intuitively, if a neural network embeds parse trees,            a global property of the space—encodes syntax
-it likely will not use its entire representation space          tree distance. This means that the model not only
-to do so, since it needs to encode many kinds of                encodes which word is governed by which other
-information. Our probe learns a linear transforma-              word, but each word’s proximity to every other
-tion of a word representation space such that the               word in the syntax tree.3 This is a claim about the
-transformed space embeds parse trees across all                 structure of the representation space, akin to the
-sentences. This can be interpreted as finding the               claim that analogies are encoded as vector-offsets
-part of the representation space that is used to en-            in uncontextualized word embeddings (Mikolov
-code syntax; equivalently, it is finding the distance           et al., 2013). One benefit of this is the ability to
-on the original space that best fits the tree metrics.          query the nature of this structure: for example, the
-                                                                dimensionality of the transformed space (§ 4.1).
-2.1   The structural probe
-In this section we provide a description of our pro-            2.3       Tree depth structural probes
-posed structural probe, first discussing the distance           The second tree property we consider is the parse
-formulation. Let M be a model that takes in a se-               depth kwi k of a word wi , defined as the number
-quence of n words w1:n ` and produces a sequence                of edges in the parse tree between wi and the root
-of vector representations h`1:n , where ` identifies            of the tree. This property is naturally represented
-the sentence. Starting with the dot product, re-                as a norm – it imposes a total order on the words
-call that we can define a family of inner prod-                 in the sentence. We wish to probe to see if there
-ucts, hT Ah, parameterized by any positive semi-                exists a squared norm on the word representation
-definite, symmetric matrix A ∈ Sm×m    +    . Equiv-                 2
-                                                                      As noted in Eqn 1, in practice, we find that approximating
-alently, we can view this as specifying a linear                the parse tree distance and norms with the squared vector
-transformation B ∈ Rk×m , such that A = B T B.                  distances and norms consistently performs better. Because a
-                                                                distance metric and its square encode exactly the same parse
-The inner product is then (Bh)T (Bh), the norm                  trees, we use the squared distance throughout this paper. Also
-of h once transformed by B. Every inner product                 strictly, since A is not positive definite, the inner product is
-corresponds to a distance metric. Thus, our family              indefinite, and the distance a pseudometric. Further discussion
-                                                                can be found in our appendix.
-of squared distances is defined as:                                 3
-                                                                      Probing for distance instead of headedness also helps
-                                   T                           avoid somewhat arbitrary decisions regarding PP headedness,
-  dB (h`i , h`j )2 = B(h`i − h`j )    B(h`i − h`j )
-
-                                                                the DP hypothesis, and auxiliaries, letting the representation
-                                                                “disagree” on these while still encoding roughly the same
-                                                    (1)         global structure. See Section 5 for more discussion.
-
-                                                             4130
-                        Distance             Depth              BERT LARGE K, where K indexes the hidden
-       Method         UUAS DSpr.         Root% NSpr.            layer of the corresponding model. All ELMo
-       L INEAR         48.9      0.58       2.9     0.27        and BERT-large layers are dimensionality 1024;
-       ELM O 0         26.8      0.44      54.3     0.56
-       D ECAY 0        51.7      0.61      54.3     0.56
-                                                                BERT-base layers are dimensionality 768.
-        P ROJ 0        59.8      0.73      64.4     0.75
-                                                                Data We probe models for their ability to capture
-      ELM O 1          77.0      0.83      86.5     0.87
-     BERT BASE 7       79.8      0.85      88.0     0.87
-                                                                the Stanford Dependencies formalism (de Marn-
-    BERT LARGE 15      82.5      0.86      89.4     0.88        effe et al., 2006), claiming that capturing most as-
-    BERT LARGE 16      81.7      0.87      90.1     0.89        pects of the formalism implies an understanding
-                                                                of English syntactic structure. To this end, we ob-
-Table 1: Results of structural probes on the PTB WSJ test       tain fixed word representations for sentences of the
-set; baselines in the top half, models hypothesized to encode
-syntax in the bottom half. For the distance probes, we show
-                                                                parsing train/dev/test splits of the Penn Treebank
-the Undirected Unlabeled Attachment Score (UUAS) as well        (Marcus et al., 1993), with no pre-processing.4
-as the average Spearman correlation of true to predicted dis-
-tances, DSpr. For the norm probes, we show the root predic-     Baselines Our baselines should encode features
-tion accuracy and the average Spearman correlation of true to   useful for training a parser, but not be capable of
-predicted norms, NSpr.
-                                                                parsing themselves, to provide points of compari-
-                                                                son against ELMo and BERT. They are as follows:
-
-                                                                L INEAR : The tree resulting from the assumption
-                                                                    that English parse trees form a left-to-right
-                                                                    chain. A model that encodes the positions of
-                                                                    words should be able to meet this baseline.
-
-                                                                ELM O 0 : Strong character-level word embed-
-                                                                   dings with no contextual information. As
-Figure 1: Parse distance UUAS and distance Spearman                these representations lack even position in-
-correlation across the BERT and ELMo model layers.
-                                                                   formation, we should be completely unable to
-                                                                   find syntax trees embedded.
-space that encodes this tree norm. We replace
-the vector distance function dB (hi , hj ) with the             D ECAY 0 : Assigns each word a weighted average
-squared vector norm khi k2B , replacing Equation 1                  of all ELM O 0 embeddings in the sentence.
-with khi kA = (Bhi )T (Bhi ) and training B to                      The weight assigned to each word decays ex-
-recreate kwi k. Like the distance probe, this norm                  ponentially as 21d , where d is the linear dis-
-formulation makes a concrete claim about the struc-                 tance between the words.
-ture of the vector space.                                       P ROJ 0 : Contextualizes the ELM O 0 embeddings
-                                                                    with a randomly initialized BiLSTM layer of
-3    Experiments
-                                                                    dimensionality identical to ELMo (1024), a
-Using our probe, we evaluate whether representa-                    surprisingly strong baseline for contextualiza-
-tions from ELMo and BERT, two popular English                       tion (Conneau et al., 2018).
-models pre-trained on language modeling-like ob-
-jectives, embed parse trees according to our struc-             3.1   Tree distance evaluation metrics
-tural hypothesis. Unless otherwise specified, we                We evaluate models on how well the predicted
-permit the linear transformation B to be potentially            distances between all pairs of words reconstruct
-full-rank (i.e., B is square.) Later, we explore what           gold parse trees and correlate with the parse trees’
-rank of transformation is actually necessary for                distance metrics. To evaluate tree reconstruction,
-encoding syntax (§ 4.1).                                        we take each test sentence’s predicted parse tree
-                                                                distances and compute the minimum spanning
-Representation models We use the 5.5B-word                      tree. We evaluate the predicted tree on undirected
-pre-trained ELMo weights for all ELMo rep-
-                                                                   4
-resentations, and both BERT-base (cased) and                         Since BERT constructs subword representations, we align
-                                                                subword vectors with gold Penn Treebank tokens, and assign
-BERT-large (cased). The representations we                      each token the average of its subword representation. This
-evaluate are denoted ELM O K, BERT BASE K,                      thus represents a lower-bound on BERT’s performance.
-
-                                                           4131
+                                                          3
 

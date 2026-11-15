@@ -1,0 +1,97 @@
+% A made-up paper, written only as a test file for a text parser. Every number in it is invented.
+% Build: pdflatex twocol.tex (twice), then: pdftotext -enc UTF-8 -layout -f 1 -l 3 twocol.pdf twocol_p1-3.txt
+\documentclass[twocolumn]{article}
+% Both columns are kept on one line grid (no stretch between paragraphs, headings that take whole lines),
+% so that pdftotext -layout prints the two columns side by side.
+\raggedbottom
+% The class's own gap between the columns (10pt) is no wider than one letter of the 10pt type, and pdftotext then
+% runs the two columns together into one block. A wider gap keeps them apart.
+\setlength{\columnsep}{0.2in}
+\setlength{\parskip}{0pt}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{-\baselineskip}{\baselineskip}{\normalfont\normalsize\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-\baselineskip}{\baselineskip}{\normalfont\normalsize\bfseries}}
+\makeatother
+\newcommand{\row}[3]{\makebox[1.9cm][r]{#1}\makebox[2.5cm][r]{#2}\makebox[2.8cm][r]{#3}}
+\title{Rise Time of Bread Dough at Five Kitchen Temperatures}
+\author{A. Example and B. Sample}
+\date{A made-up paper written as a test file. Every number in it is invented.}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Home bakers are often told to leave dough until it has doubled in size, but few recipes say how long that takes in a cool or a warm kitchen. We measured the time a plain wheat dough needs to double its volume at five room temperatures between 16 and 32 degrees Celsius. Each temperature was tried with twelve batches made from the same flour, water, salt and yeast. The doubling time fell from about four hours in the coolest room to just over one hour in the warmest. The spread between batches was largest in the cool room and smallest near 28 degrees. A simple rule fits the measurements well: every four degrees of extra warmth shortens the wait by roughly a third. We give a small table that a baker can read a waiting time from.
+\end{abstract}
+
+\section{Introduction}
+
+Bread recipes describe the first rise in two ways. Some give a time, such as one hour. Others give a sign to look for, most often that the dough should double in size. The two descriptions agree only in the kitchen where the recipe was written. A baker in a cold house who waits one hour finds a dense dough, and a baker in a hot summer kitchen who waits one hour may find that the dough has already risen and fallen back.
+
+The cause is well understood in outline. Yeast turns sugars into carbon dioxide and alcohol, and the gas is held by the stretchy network that forms when wheat flour is wetted and kneaded. Yeast works faster when it is warm, up to a point, so a warm dough fills with gas sooner than a cool one. What is less often written down is how large the effect is over the range of temperatures found in ordinary homes.
+
+This paper reports a small and deliberately plain experiment. We kept the recipe fixed and changed only the temperature of the room. We asked three questions. How long does the dough take to double at each temperature? How much do batches differ from one another when nothing is changed on purpose? And is there a rule simple enough to remember that predicts the waiting time?
+
+We do not study flavour, crumb or crust, although all three depend on the length of the rise. We also leave out sourdough, enriched doughs with butter or sugar, and the second rise after shaping. Each of these would need an experiment of its own.
+
+The rest of the paper is organised as follows. Section 2 describes the dough, the rooms and the way the rise was measured. Section 3 gives the doubling times and the spread between batches. Section 4 discusses what the numbers mean for a baker and where the simple rule stops working, and Section 5 sums up.
+
+\section{Method}
+
+\subsection{Dough and flour}
+
+Every batch used the same recipe: 500 grams of white bread flour, 325 grams of water, 10 grams of salt and 5 grams of dried yeast. All the flour came from one sack, which was kept closed between sessions. The water was weighed, not measured by volume, and was brought to the temperature of the room before mixing so that the dough started at the temperature it would be kept at.
+
+The dough was mixed by hand for two minutes, rested for ten minutes, and then kneaded for eight minutes on a bare worktop. The same person kneaded every batch. After kneading, the dough was shaped into a ball and placed in a straight-sided clear container with a lid. Straight sides matter, because the height of the dough is then in proportion to its volume.
+
+\subsection{Rooms and temperatures}
+
+Five temperatures were used: 16, 20, 24, 28 and 32 degrees Celsius. The two coolest were reached in an unheated store room in winter, with a small heater on a thermostat for the 20 degree runs. The three warmer settings used a cupboard fitted with a lamp and the same thermostat. A thermometer beside the container was read every fifteen minutes, and a run was thrown away if any reading was more than one degree from the target. Four runs were lost in this way and were repeated on a later day.
+
+Twelve batches were made at each temperature, three a day over four days, which gives sixty batches in all. The order of the temperatures was shuffled between weeks so that a slow change in the flour or the yeast would not line up with temperature.
+
+\subsection{Measuring the rise}
+
+A strip of paper marked in millimetres was taped to the outside of each container. The height of the dough was read at the start and then every ten minutes. Because the top of a rising dough is domed, the reading was taken where the dough met the wall of the container, which is easy to see through clear plastic.
+
+The doubling time of a batch is the first time at which the height reached twice the starting height. When the height passed that mark between two readings, the time was found by drawing a straight line between them. Readings went on for thirty minutes past doubling to check that the dough was still rising and had not collapsed.
+
+\section{Results}
+
+\subsection{Doubling time}
+
+Table 1 lists the mean doubling time at each temperature. At 16 degrees the dough needed a little over four hours. At 32 degrees it needed sixty-six minutes. The time drops quickly between 16 and 24 degrees and more slowly after that.
+
+\vspace{\baselineskip}
+\noindent\row{Room (C)}{Mean (min)}{Spread (min)}\\
+\row{16}{245}{21}\\
+\row{20}{168}{14}\\
+\row{24}{118}{9}\\
+\row{28}{84}{6}\\
+\row{32}{66}{7}
+
+\vspace{\baselineskip}
+\noindent Table 1: Doubling time of the dough at five room temperatures. Twelve batches at each temperature. The spread is the standard deviation between batches.
+
+\vspace{\baselineskip}
+
+Going from one row of the table to the next, the time is multiplied by 0.69, 0.70, 0.71 and 0.79. The first three steps are close to one another, so over the range from 16 to 28 degrees each extra four degrees removes about three tenths of the waiting time. The last step is smaller. At 32 degrees the dough is still faster than at 28, but by less than the rule predicts.
+
+\subsection{Spread between batches}
+
+Batches made on the same day at the same temperature did not double at the same moment. In the coolest room the standard deviation was 21 minutes, and the slowest and fastest of the twelve batches were more than an hour apart. Near 28 degrees the standard deviation was 6 minutes. As a share of the mean, the spread stays between seven and eleven percent at every temperature, so a slow rise is not less regular than a fast one. It only looks that way on a clock.
+
+We looked for a pattern in which batches were slow. The day of the week, the position on the shelf and the order of mixing explained nothing that we could see. Batches from the last quarter of the sack were about four percent slower than those from the first quarter, which may point to the yeast tin having been opened many times by then.
+
+\section{Discussion}
+
+For a baker the main result is that the time printed in a recipe is right at one temperature only. A recipe that says one and a half hours was probably written in a kitchen at about 27 degrees. In a room at 20 degrees the same dough needs nearly twice as long, and at 16 degrees close to three times as long. The sign of doubling is the better guide, and a straight-sided container makes it easy to judge.
+
+The rule of a third per four degrees is rough, and it has limits. It was measured between 16 and 28 degrees. Above that the gain shrinks, and other work with yeast suggests that somewhere beyond 35 degrees the rise slows down again. Below 16 degrees we have no measurements at all. A refrigerator, at about 4 degrees, is far outside the range, and the rule should not be stretched to it.
+
+The experiment has other limits too. One flour, one yeast and one amount of water were used. A wetter dough or a wholemeal flour may respond differently. The kneading was done by one person, which keeps the batches alike but means that we cannot say how much kneading matters. Finally, height in a container measures the volume of the dough and not the amount of gas made, since some gas escapes through the surface.
+
+\section{Conclusion}
+
+A plain wheat dough doubled in about four hours at 16 degrees Celsius and in about one hour at 32 degrees. Between 16 and 28 degrees every extra four degrees shortened the wait by roughly a third. Batches differed from one another by about a tenth of the waiting time, whatever the temperature. Recipes would serve bakers in cool and warm kitchens better if they gave the temperature at which their times were measured, or a small table like ours.
+
+\end{document}
